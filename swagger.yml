@@ -1,0 +1,39 @@
+swagger: "2.0"
+info:
+  description: Swagger file for Docker Rest API
+  version: "1.0.0"
+  title: Docker Rest API
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+
+basePath: "/api"
+
+paths:
+  /containers:
+    get:
+      operationId: "containers.listContainers"
+      tags:
+        - "containers"
+      responses: 
+        200:
+          description: "Successful get containers"
+          schema:
+            type: "array"
+
+  /containers/{name}:
+    get:
+      operationId: "containers.getContainer"
+      tags:
+        - "containers"
+      parameters:
+      - name: "name"
+        in: path
+        type: string
+        required: true
+      responses:
+        200:
+          description: "Successful get specific container"
+          schema:
+            type: "array"
