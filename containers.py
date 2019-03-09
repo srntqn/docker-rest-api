@@ -1,5 +1,5 @@
 import docker
-from flask import make_response, abort, jsonify
+from flask import make_response, abort
 
 client = docker.from_env()
 
@@ -24,20 +24,54 @@ def getContainer(name):
 
 def pullImage(name):
     client.images.pull(f'{name}:latest')
-    return print(f"Successfully pulled {name} image.")
+    return f"Successfully pulled {name} image."
 
 
 def createContainer(name):
-    client.containers.run(f'{name}:latest', name={name}, detach=True)
-    return print(f"Container {name} is running.")
+    try:
+        client.containers.run(f'{name}:latest', name={name}, detach=True)
+    except docker.errors.DockerException as error:
+        abort(
+            404, str(error)
+        )
+    return f"Container {name} is running."
+
+
+def changeContainerStatus(name, status):
+    if status not in ('running', 'exited'):
+        abort(
+            500, "Please use correct status code."
+        )
+    else:
+        try:
+            container = client.containers.get(f"{name}")
+        except docker.errors.DockerException as error:
+            abort(
+                404, str(error)
+            )
+    if container.status == status:
+        abort(
+            500, f'Container {name} already {status}.'
+        )
+    else:
+        if container.status == "running":
+            container.stop()
+        else:
+            container.start()
+        return f'Container {name} is {status}.'
 
 
 def removeContainer(name):
-    container = client.containers.get(f"{name}")
+    try:
+        container = client.containers.get(f"{name}")
+    except docker.errors.DockerException as error:
+        abort(
+            404, str(error)
+        )
     if container.status == "running":
         container.stop()
         container.remove()
     else:
         container.remove()
 
-    return print(f"Successfully removed {name} container.")
+    return f"Successfully removed {name} container."

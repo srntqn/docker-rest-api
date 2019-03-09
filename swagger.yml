@@ -37,3 +37,49 @@ paths:
           description: "Successful get specific container"
           schema:
             type: "array"
+    post:
+      operationId: "containers.createContainer"
+      tags:
+        - "containers"
+      parameters:
+      - name: "name"
+        in: path
+        type: string
+        required: true
+      responses:
+        200:
+          description: "Successful create container"
+          schema:
+            type: "string"
+    put:
+      operationId: "containers.changeContainerStatus"
+      tags:
+        - "containers"
+      parameters:
+      - name: "name"
+        in: path
+        type: string
+        required: true
+      - name: "status"
+        in: query
+        type: string
+        required: true
+      responses:
+        200:
+          description: "Successful change container status"
+          schema:
+            type: "string"
+    delete:
+      operationId: "containers.removeContainer"
+      tags:
+        - "containers"
+      parameters:
+      - name: "name"
+        in: path
+        type: string
+        required: true
+      responses:
+        200:
+          description: "Successful delete container"
+          schema:
+            type: "string"
