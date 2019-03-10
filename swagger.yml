@@ -16,6 +16,7 @@ paths:
       operationId: "containers.listContainers"
       tags:
         - "containers"
+      description: "Get all containers with parameters"
       responses: 
         200:
           description: "Successful get containers"
@@ -25,6 +26,7 @@ paths:
   /containers/{name}:
     get:
       operationId: "containers.getContainer"
+      description: "Get specific container with parameters"
       tags:
         - "containers"
       parameters:
@@ -39,6 +41,7 @@ paths:
             type: "array"
     post:
       operationId: "containers.createContainer"
+      description: "Create container"
       tags:
         - "containers"
       parameters:
@@ -53,6 +56,7 @@ paths:
             type: "string"
     put:
       operationId: "containers.changeContainerStatus"
+      description: "Change container status, 'running' or 'exited' allowed"
       tags:
         - "containers"
       parameters:
@@ -71,6 +75,7 @@ paths:
             type: "string"
     delete:
       operationId: "containers.removeContainer"
+      description: "Delete container"
       tags:
         - "containers"
       parameters:
@@ -81,5 +86,27 @@ paths:
       responses:
         200:
           description: "Successful delete container"
+          schema:
+            type: "string"
+
+  /containers/logs/{name}:
+    get:
+      operationId: "containers.getContainerLogs"
+      description: "Get logs of specific container"
+      tags:
+        - "containers"
+      parameters:
+      - name: "name"
+        in: path
+        type: string
+        required: true
+      - name: "tail"
+        in: query
+        type: integer
+        required: false
+        description: "Number of lines at the end of logs"
+      responses:
+        200:
+          description: "Successful get container logs"
           schema:
             type: "string"

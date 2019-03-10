@@ -75,3 +75,13 @@ def removeContainer(name):
         container.remove()
 
     return f"Successfully removed {name} container."
+
+
+def getContainerLogs(name, tail='all'):
+    try:
+        container = client.containers.get(f"{name}")
+    except docker.errors.DockerException as error:
+        abort(
+            404, str(error)
+        )
+    return container.logs(tail=tail)
