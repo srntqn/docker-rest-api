@@ -2,7 +2,7 @@ apiVersion: skaffold/v1beta4
 kind: Config
 build:
   artifacts:
-  - image: docker-py
+  - image: srqtn/docker-py:latest
 deploy:
   kubectl:
     manifests:

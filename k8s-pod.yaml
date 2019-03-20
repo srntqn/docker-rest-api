@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: docker-py
-        image: docker-py
+        image: srqtn/docker-py
         resources:
           limits:
             memory: "128Mi"
