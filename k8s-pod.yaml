@@ -25,6 +25,8 @@ spec:
           name: docker-socket-volume
         securityContext:
           privileged: true
+      imagePullSecrets:
+      - name: regcred
       volumes:
       - name: docker-socket-volume
         hostPath:
