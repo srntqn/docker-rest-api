@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "docker-rest-api"
+version = "0.1.0"
+description = "Docker REST API service"
+authors = ["srntqn <serenityqn@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Flask = "^1.1.2"
+connexion = {extras = ["swagger-ui"], version = "^2.7.0"}
+docker = "^4.4.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
